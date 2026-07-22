@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api-cdn.figma.com",
+        hostname: "www.themealdb.com",
       },
     ],
   },

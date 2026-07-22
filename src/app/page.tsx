@@ -4,7 +4,13 @@ import Advertisement from "@/components/advertisement/Default";
 import Button from "@/components/buttons/Default";
 import Card from "@/components/cards/Default";
 import { Food, FoodNumber, RandomFood } from "@/utils/RandomRecipe";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const loadingFood:Food = {
+  name: "Betöltés...",
+  source:"#",
+  image_src:"/loading.gif"
+}
 
 export default function Home() {
   const [soup, setSoup] = useState<Food>();
@@ -13,21 +19,27 @@ export default function Home() {
 
   const hasResult = soup && main && dessert;
 
-  const handleRandom = (food?: FoodNumber) => {
+  const handleRandom = async(food?: FoodNumber) => {
     switch (food) {
       case FoodNumber.SOUP:
-        setSoup(RandomFood(FoodNumber.SOUP));
+        setSoup(loadingFood);
+        setSoup(await RandomFood(FoodNumber.SOUP));
         break;
       case FoodNumber.MAIN:
-        setMain(RandomFood(FoodNumber.MAIN));
+        setMain(loadingFood);
+        setMain(await RandomFood(FoodNumber.MAIN));
         break;
       case FoodNumber.DESSERT:
-        setDessert(RandomFood(FoodNumber.DESSERT));
+        setDessert(loadingFood);
+        setDessert(await RandomFood(FoodNumber.DESSERT));
         break;
       default:
-        setSoup(RandomFood(FoodNumber.SOUP));
-        setMain(RandomFood(FoodNumber.MAIN));
-        setDessert(RandomFood(FoodNumber.DESSERT));
+        setSoup(loadingFood);
+        setMain(loadingFood);
+        setDessert(loadingFood);
+        setSoup(await RandomFood(FoodNumber.SOUP));
+        setMain(await RandomFood(FoodNumber.MAIN));
+        setDessert(await RandomFood(FoodNumber.DESSERT));
         break;
     }
   };

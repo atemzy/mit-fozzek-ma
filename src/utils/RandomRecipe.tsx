@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const example = "https://api-cdn.figma.com/resize?downloadUrl=https%3A%2F%2Fs3-alpha-sig.figma.com%2Fimg%2F8f0f%2Fd201%2F215fb2ff37c803c5558035027a695bf8%3FExpires%3D1780876800%26Key-Pair-Id%3DAPKAQ4GOSFWCW27IBOMQ%26Signature%3Drimn3xbhGDMajaAq00ObSBxi-jIYSuRC8Fn3a8M9vdg4YilHCQT-x1yLJM8eIMqxv-Rti7O2np7urOAgMmUukgww4yKoMVhK3FLqv%7Ei1Zc4IqPZ-6643K4xTmK3%7EyTMs3-TFtQ9PtrrniF4JEtmNBAISBw6o6H-ZaEyfsB%7EWey2t3RCPbMXuzXMTJic4yYXz5ZC5pRqky7kOMfW%7ELFcUcwvtIAMEEueyZ3mf3Rlj1R15U6TsY9WimQmhettJJHA-FRa2tCGKoK2FEGNDwo3lUEoEfjWAYBW9lJUL7w-qjK%7EAIrrJi3-LfS6fkD8Pqp75WvsvdigKK03H%7E-v7wbVPng__&expiration=1780876800&signature=880fb4905dc49ac98f5bdd8032806fe4252f4bc3d0c8d990e0438d479a70139b&maxsize=2048"
+import api from "./api"
 
 export interface Food {
   name:string;
@@ -14,7 +12,59 @@ export enum FoodNumber {
   DESSERT
 }
 
-export function RandomFood(type:FoodNumber): Food{
+const notMain = ["Starter","Miscellaneous","Side","Dessert","Breakfast"]
+
+let wrongFoods: Food[] = []
+export async function RandomFood(type:FoodNumber): Promise<Food>{
+    console.log("b",wrongFoods)
+    let data;
     
-    return {name:"MINTA",source:"https://minta.hu",image_src:example}
+    switch(type){
+      case FoodNumber.SOUP:
+        data = await api.get("")
+        while(!data.strMeal.includes("Soup")){
+          const wrongFood = wrongFoods.find(food => food.strMeal.includes("Soup"))
+          if(wrongFood){
+            data = wrongFood
+            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
+            break;
+          }
+          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
+          data = await api.get("")
+        }
+        break;
+      case FoodNumber.MAIN:
+        data = await api.get("")
+        while(notMain.includes(data.strCategory) || data.strMeal.includes("Soup")){
+          const wrongFood = wrongFoods.find(food => !notMain.includes(food.strCategory) && !food.strMeal.includes("Soup"))
+          if(wrongFood){
+            data = wrongFood
+            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
+            break;
+          }
+          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
+          data = await api.get("")
+        }
+        break;
+      case FoodNumber.DESSERT:
+        data = await api.get("")
+        while(data.strCategory != "Dessert"){
+          const wrongFood = wrongFoods.find(food => food.strCategory === "Dessert")
+          if(wrongFood){
+            data = wrongFood
+            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
+            break;
+          }
+          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
+          data = await api.get("")
+        }
+        break;
+    }
+    const food:Food = {
+      name: data.strMeal,
+      source:data.strSource,
+      image_src:data.strMealThumb
+    }
+    console.log("a", wrongFoods)
+    return food
 }
