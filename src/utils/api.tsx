@@ -4,13 +4,8 @@ import axios from "axios"
 const api = axios.create({
     baseURL: "https://www.themealdb.com/api/json/v1/1/random.php"
 });
+
 //handle too many requests error problem
-
-api.interceptors.request.use(config => {
-    console.log("[api] request", config.method, config.url);
-    return config;
-});
-
 api.interceptors.response.use(
     response => response.data.meals[0],
     error => {
@@ -18,8 +13,6 @@ api.interceptors.response.use(
             const config = error.config as any;
             config.__retryCount = (config.__retryCount || 0) + 1;
             const MAX_RETRIES = 3;
-
-            console.error("[api] 429 received, retry #", config.__retryCount, error);
 
             if (config.__retryCount > MAX_RETRIES) {
                 console.error("[api] Too many requests. Max retries reached.");
