@@ -15,49 +15,18 @@ export enum FoodNumber {
 const notMain = ["Starter","Miscellaneous","Side","Dessert","Breakfast"]
 
 let wrongFoods: Food[] = []
+
 export async function RandomFood(type:FoodNumber): Promise<Food>{
-    console.log("b",wrongFoods)
     let data;
-    
     switch(type){
       case FoodNumber.SOUP:
-        data = await api.get("")
-        while(!data.strMeal.includes("Soup")){
-          const wrongFood = wrongFoods.find(food => food.strMeal.includes("Soup"))
-          if(wrongFood){
-            data = wrongFood
-            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
-            break;
-          }
-          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
-          data = await api.get("")
-        }
+        data = await getWrongFood((food) => !food.strMeal.includes("Soup"))
         break;
       case FoodNumber.MAIN:
-        data = await api.get("")
-        while(notMain.includes(data.strCategory) || data.strMeal.includes("Soup")){
-          const wrongFood = wrongFoods.find(food => !notMain.includes(food.strCategory) && !food.strMeal.includes("Soup"))
-          if(wrongFood){
-            data = wrongFood
-            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
-            break;
-          }
-          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
-          data = await api.get("")
-        }
+        data = await getWrongFood((food) => notMain.includes(food.strCategory) || food.strMeal.includes("Soup"))
         break;
       case FoodNumber.DESSERT:
-        data = await api.get("")
-        while(data.strCategory != "Dessert"){
-          const wrongFood = wrongFoods.find(food => food.strCategory === "Dessert")
-          if(wrongFood){
-            data = wrongFood
-            wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
-            break;
-          }
-          if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
-          data = await api.get("")
-        }
+        data = await getWrongFood((food) => food.strCategory != "Dessert")
         break;
     }
     const food:Food = {
@@ -65,6 +34,22 @@ export async function RandomFood(type:FoodNumber): Promise<Food>{
       source:data.strSource,
       image_src:data.strMealThumb
     }
-    console.log("a", wrongFoods)
     return food
+}
+
+async function getWrongFood(
+  booleanCondition: (food: any) => boolean
+): Promise<any> {
+  let data = await api.get("")
+  while(booleanCondition(data)){
+    const wrongFood = wrongFoods.find(food => !booleanCondition(food))
+    if(wrongFood){
+      data = wrongFood
+      wrongFoods = wrongFoods.filter(food => food.name !== wrongFood.name)
+      break;
+    }
+    if(!wrongFoods.find(food => food.strMeal === data.strMeal)) wrongFoods.push(data)
+    data = await api.get("")
+  }
+  return data
 }
