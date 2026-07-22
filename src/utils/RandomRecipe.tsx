@@ -4,6 +4,7 @@ export interface Food {
   name:string;
   source:string;
   image_src:string;
+  loading?:boolean;
 }
 
 export enum FoodNumber {
@@ -32,7 +33,8 @@ export async function RandomFood(type:FoodNumber): Promise<Food>{
     const food:Food = {
       name: data.strMeal,
       source:data.strSource,
-      image_src:data.strMealThumb
+      image_src:data.strMealThumb,
+      loading:false
     }
     return food
 }

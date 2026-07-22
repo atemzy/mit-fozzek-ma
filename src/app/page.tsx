@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 const loadingFood:Food = {
   name: "Betöltés...",
   source:"#",
-  image_src:"/loading.gif"
+  image_src:"/loading.gif",
+  loading:true
 }
 
 export default function Home() {

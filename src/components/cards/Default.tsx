@@ -20,7 +20,7 @@ const Card: React.FC<Card> = ({title,food,onClick}) => {
             <h2 className='text-3xl'>{food.name}</h2>
             {food.source == "#" ? null : <a href={food.source} className='text-xl'><i>Receptet keresek</i></a>}
         </div>
-        <Button onClick={onClick} title='újra sorsolom' />
+        <Button disabled={food.loading} onClick={onClick} title='újra sorsolom' />
     </div>
     );
 };
