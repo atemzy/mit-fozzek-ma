@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#f7d7a1"/><stop offset="1" stop-color="#d58267"/></linearGradient></defs>
+  <rect width="1200" height="700" fill="url(#g)"/>
+  <path d="M420 545h360L710 285H485Z" fill="#f2c780"/>
+  <path d="M468 350h260" stroke="#7e3a28" stroke-width="38"/>
+  <path d="M495 425h255" stroke="#fff1d6" stroke-width="34"/>
+  <ellipse cx="600" cy="282" rx="135" ry="52" fill="#fff1d6"/>
+  <circle cx="603" cy="242" r="35" fill="#a22c2c"/>
+  <text x="600" y="145" text-anchor="middle" font-family="Arial" font-size="72" font-weight="700" fill="#6d2819">DESSZERTEK</text>
+</svg>

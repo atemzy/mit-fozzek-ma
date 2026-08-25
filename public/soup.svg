@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#f6c76d"/><stop offset="1" stop-color="#e87b45"/></linearGradient></defs>
+  <rect width="1200" height="700" fill="url(#g)"/>
+  <ellipse cx="600" cy="450" rx="330" ry="110" fill="#fff4df"/>
+  <path d="M330 390h540c-25 180-140 245-270 245S355 570 330 390Z" fill="#f8eee1"/>
+  <ellipse cx="600" cy="400" rx="270" ry="74" fill="#b84824"/>
+  <circle cx="520" cy="390" r="26" fill="#e9b44c"/><circle cx="640" cy="420" r="20" fill="#6f8d3f"/><circle cx="710" cy="382" r="18" fill="#e9b44c"/>
+  <text x="600" y="165" text-anchor="middle" font-family="Arial" font-size="72" font-weight="700" fill="#6d2819">LEVESEK</text>
+</svg>

@@ -1,27 +1,60 @@
-import { Food } from '@/utils/RandomRecipe';
-import React from 'react';
+import { Food } from "@/utils/RandomRecipe";
 import Image from "next/image";
-import Button from '../buttons/Default';
+import React from "react";
+import Button from "../buttons/Default";
 
-interface Card {
-    title:string;
-    food:Food;
-    onClick:()=>void;
+interface CardProps {
+  title: string;
+  food: Food;
+  onClick: () => void;
 }
 
-const Card: React.FC<Card> = ({title,food,onClick}) => {
-    return (
-    <div className='flex flex-col gap-4 text-center'>
-        <h3 className='text-4xl'>{title}</h3>
-        <div className='relative h-42'>
-            <Image alt={food.name} src={food.image_src} fill sizes="(max-width: 768px) 750px, (max-width: 1200px) 320px, 450px" className='object-cover'/>
+const Card: React.FC<CardProps> = ({ title, food, onClick }) => {
+  return (
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1.5rem] border border-foreground/10 bg-white/70 shadow-sm sm:rounded-[2rem]">
+      <div className="relative h-40 shrink-0 overflow-hidden bg-white/40 sm:h-44 lg:h-48">
+        <Image
+          alt={food.name}
+          src={food.image_src}
+          fill
+          sizes="(max-width: 767px) 100vw, (max-width: 1279px) 33vw, 30vw"
+          className={
+            food.loading
+              ? "object-cover"
+              : "object-cover transition-transform duration-300 hover:scale-[1.03]"
+          }
+        />
+        <div className="absolute left-3 top-3 rounded-full bg-background/90 px-3 py-1.5 text-xs font-black uppercase tracking-wider backdrop-blur sm:left-4 sm:top-4 sm:px-4 sm:py-2 sm:text-sm">
+          {title}
         </div>
-        <div className='mb-2'>
-            <h2 className='text-3xl'>{food.name}</h2>
-            {food.source == "#" ? null : <a href={food.source} className='text-xl'><i>Receptet keresek</i></a>}
+      </div>
+
+      <div className="flex flex-1 flex-col p-4 text-center sm:p-5 lg:p-6">
+        <div className="flex min-h-[5.75rem] items-center justify-center sm:min-h-[6.5rem] lg:min-h-[7.25rem]">
+          <h2 className="w-full [overflow-wrap:anywhere] text-xl font-black leading-tight sm:text-2xl lg:text-3xl">
+            {food.name}
+          </h2>
         </div>
-        <Button disabled={food.loading} onClick={onClick} title='újra sorsolom' />
-    </div>
-    );
+
+        <div className="flex min-h-12 items-start justify-center">
+          {food.source !== "#" && (
+            <a
+              href={food.source}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-10 items-center justify-center px-2 text-sm font-semibold underline decoration-foreground/30 underline-offset-4 transition hover:decoration-foreground sm:text-base"
+            >
+              Recept keresése ↗
+            </a>
+          )}
+        </div>
+
+        <div className="mt-auto pt-4">
+          <Button disabled={food.loading} onClick={onClick} title="Másikat kérek" />
+        </div>
+      </div>
+    </article>
+  );
 };
+
 export default Card;

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+  <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#e7b45b"/><stop offset="1" stop-color="#b63b26"/></linearGradient></defs>
+  <rect width="1200" height="700" fill="url(#g)"/>
+  <ellipse cx="600" cy="440" rx="360" ry="145" fill="#fff4df"/>
+  <ellipse cx="510" cy="420" rx="145" ry="78" fill="#a52f20" transform="rotate(-8 510 420)"/>
+  <circle cx="720" cy="415" r="64" fill="#e9c36a"/><circle cx="800" cy="450" r="52" fill="#e9c36a"/><circle cx="690" cy="485" r="45" fill="#e9c36a"/>
+  <path d="M405 405c50-30 110-42 170-10" stroke="#f7dcc1" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <text x="600" y="165" text-anchor="middle" font-family="Arial" font-size="72" font-weight="700" fill="#fff5df">FŐÉTELEK</text>
+</svg>
