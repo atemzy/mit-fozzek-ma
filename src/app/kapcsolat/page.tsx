@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import InfoPage from "@/components/content/InfoPage";
+export const metadata: Metadata = { title: "Kapcsolat", description: "Kapcsolat a Mit főzzek ma? oldal készítőjével.", alternates: { canonical: "/kapcsolat/" } };
+export default function Page(){return <InfoPage title="Kapcsolat" intro="Hibát találtál, ételötletet javasolnál vagy az oldallal kapcsolatban szeretnél írni?"><section className="rounded-2xl border border-[#6f2b1b]/10 bg-white/75 p-6"><h2 className="font-serif text-3xl font-black text-[#742115]">Kapcsolatfelvétel</h2><p className="mt-3">A weboldal készítője az MTD. Kapcsolatfelvételhez a <a className="font-black underline" href="https://mezeitamasdev.hu" target="_blank" rel="noopener noreferrer">mezeitamasdev.hu</a> weboldalon található elérhetőségeket használhatod.</p></section></InfoPage>}

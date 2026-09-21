@@ -5,7 +5,9 @@ import Button from "@/components/buttons/Default";
 import Card from "@/components/cards/Default";
 import { Food, FoodNumber, RandomFood } from "@/utils/RandomRecipe";
 import { useState } from "react";
-import Image from "next/image";
+import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mitfozzekmost.hu";
 
@@ -164,18 +166,7 @@ export default function Home() {
       />
 
       <div className="mx-auto w-full max-w-[1480px] overflow-hidden rounded-[1.25rem] border border-[#6f2b1b]/15 sm:rounded-[2rem] bg-[#fffaf0]/80 shadow-[0_20px_70px_rgba(87,35,21,0.12)] backdrop-blur-sm">
-        <header className="flex items-center justify-between gap-2 border-b border-[#6f2b1b]/10 sm:gap-4 bg-white/70 px-4 py-3 md:px-7">
-          <div className="flex items-center gap-3">
-            <Image src="/logo-mark.png" alt="Mit főzzek ma? embléma" width={54} height={54} priority className="h-11 w-11 shrink-0 sm:h-[54px] sm:w-[54px]" />
-            <div>
-              <div className="font-serif text-lg font-black tracking-tight text-[#742115] sm:text-xl md:text-2xl">Mit főzzek ma?</div>
-              <div className="text-xs font-semibold text-[#4d6d36]">Magyar ízek. Nincs több fejtörés.</div>
-            </div>
-          </div>
-          <div className="hidden rounded-full border border-[#4d6d36]/20 bg-[#f4f8ed] px-4 py-2 text-xs font-bold text-[#4d6d36] sm:block">
-            Leves · Főétel · Desszert
-          </div>
-        </header>
+        <SiteHeader />
 
         <section className="relative overflow-hidden border-b border-[#6f2b1b]/10 bg-[linear-gradient(135deg,#fff4dc_0%,#fffaf0_50%,#f8e7d4_100%)] px-4 py-8 text-center sm:px-5 sm:py-10 md:px-10 md:py-14">
           <div className="pointer-events-none absolute -left-10 -top-16 h-52 w-52 rounded-full bg-[#c5231a]/10 blur-3xl" />
@@ -225,12 +216,6 @@ export default function Home() {
               </section>
             )}
 
-            <Advertisement
-              className="min-h-[110px]"
-              label="Hirdetés"
-              slot={process.env.NEXT_PUBLIC_ADSENSE_MIDDLE_SLOT}
-            />
-
             <section className="rounded-[2rem] border border-[#6f2b1b]/10 bg-white/70 p-6 md:p-9">
               <p className="text-xs font-black uppercase tracking-[0.25em] text-[#4d6d36]">Ötlet egy kattintásra</p>
               <h2 className="mt-2 font-serif text-3xl font-black text-[#742115] [overflow-wrap:anywhere] md:text-4xl">Mit főzzek ma ebédre vagy vacsorára?</h2>
@@ -253,6 +238,60 @@ export default function Home() {
             </section>
 
             <section className="rounded-[2rem] border border-[#6f2b1b]/10 bg-white/70 p-6 md:p-9">
+              <p className="text-xs font-black uppercase tracking-[0.25em] text-[#4d6d36]">Főzési útmutatók</p>
+              <h2 className="mt-2 font-serif text-3xl font-black text-[#742115] md:text-4xl">Több ötlet, nem csak véletlen sorsolás</h2>
+              <p className="mt-4 max-w-3xl leading-8 text-[#69483d]">
+                A sorsoló akkor a leghasznosabb, ha gyors inspiráció kell, de néha célzottabb ötletre van szükség: olcsó, gyors, hétvégi vagy éppen vacsorára való fogásra. Ezekhez külön útmutatókat készítettünk konkrét ételötletekkel és tervezési szempontokkal.
+              </p>
+              <div className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                {[
+                  ["Ebédötletek", "/ebed-otletek", "Hétköznapi és hétvégi ebédek"],
+                  ["Vacsoraötletek", "/vacsora-otletek", "Gyorsabb esti fogások"],
+                  ["Gyors ételek", "/gyors-etelek", "30–40 perc körüli ötletek"],
+                  ["Olcsó ételek", "/olcso-etelek", "Pénztárcabarát alapanyagokból"],
+                  ["Magyaros ételek", "/magyaros-etelek", "Klasszikus házias fogások"],
+                  ["Hétvégi menü", "/hetvegi-menu", "Leves, főétel és desszert együtt"],
+                  ["Egyszerű ételek", "/egyszeru-etelek", "Kevés hozzávalóból"],
+                  ["Maradékmentés", "/maradekmento-etelek", "Kevesebb pazarlás, több ötlet"],
+                ].map(([title, href, desc]) => (
+                  <Link key={href} href={href} className="flex h-full flex-col rounded-2xl border border-[#6f2b1b]/10 bg-[#fff5e8] p-5 transition hover:-translate-y-0.5 hover:shadow-md">
+                    <h3 className="font-black text-[#742115]">{title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[#76564c]">{desc}</p>
+                    <span className="mt-auto pt-4 inline-block text-sm font-black text-[#4d6d36]">Megnézem →</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-[2rem] border border-[#6f2b1b]/10 bg-white/70 p-6 md:p-9">
+              <h2 className="font-serif text-3xl font-black text-[#742115]">Hogyan válassz menüt?</h2>
+              <div className="mt-5 grid gap-5 md:grid-cols-2">
+                <div>
+                  <h3 className="font-black text-[#742115]">Indulj abból, amid már van</h3>
+                  <p className="mt-2 leading-8 text-[#69483d]">Nézd meg először a hűtőt és a kamrát. Ha van burgonya, tojás, tészta, rizs vagy néhány zöldség, ezek köré könnyebb ételt tervezni, mint teljesen nulláról kitalálni a bevásárlást.</p>
+                </div>
+                <div>
+                  <h3 className="font-black text-[#742115]">Igazítsd az idődhöz</h3>
+                  <p className="mt-2 leading-8 text-[#69483d]">Hétköznap válassz gyorsabban elkészülő vagy jól újramelegíthető fogást. Hétvégére hagyhatod a húslevest, töltött ételeket és a hosszabban sülő fogásokat.</p>
+                </div>
+                <div>
+                  <h3 className="font-black text-[#742115]">Ne legyen minden fogás nehéz</h3>
+                  <p className="mt-2 leading-8 text-[#69483d]">Tartalmas leves mellé egyszerűbb második fogás is elég. Ha a főétel nehezebb, előtte válassz könnyű levest, a desszertből pedig kisebb adagot.</p>
+                </div>
+                <div>
+                  <h3 className="font-black text-[#742115]">Tervezz maradékkal is</h3>
+                  <p className="mt-2 leading-8 text-[#69483d]">Egy rakott étel, pörkölt vagy főzelék másnap is jó ebéd lehet. Így kevesebbet kell főzni, és könnyebb elkerülni az élelmiszer-pazarlást.</p>
+                </div>
+              </div>
+            </section>
+
+            <Advertisement
+              className="min-h-[110px]"
+              label="Hirdetés"
+              slot={process.env.NEXT_PUBLIC_ADSENSE_MIDDLE_SLOT}
+            />
+
+            <section className="rounded-[2rem] border border-[#6f2b1b]/10 bg-white/70 p-6 md:p-9">
               <h2 className="font-serif text-3xl font-black text-[#742115] [overflow-wrap:anywhere]">Gyakori kérdések</h2>
               <div className="mt-5 grid gap-4 md:grid-cols-2">
                 {faqs.map((faq) => (
@@ -272,30 +311,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="px-4 pb-5 md:px-6">
-          <Advertisement
-            className="min-h-[90px]"
-            label="Hirdetés"
-            slot={process.env.NEXT_PUBLIC_ADSENSE_TOP_SLOT}
-          />
-        </div>
-
-        <footer className="border-t border-[#6f2b1b]/10 bg-[#2d241f] px-5 py-6 text-center text-sm text-white/65">
-          <p>Sorsolj egy menüt, főzz valami jót!</p>
-          <p className="mt-2 font-black text-white">
-            Készítette:{" "}
-            <a
-              href="https://mezeitamasdev.hu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-white/35 underline-offset-4 transition hover:text-[#f6c455]"
-              aria-label="MTD – mezeitamasdev.hu (új ablakban nyílik meg)"
-            >
-              MTD
-            </a>{" "}
-            <span aria-hidden="true">♥</span>
-          </p>
-        </footer>
+        <SiteFooter />
       </div>
     </main>
   );

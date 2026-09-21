@@ -55,3 +55,27 @@ DirectoryIndex index.html
 </IfModule>
 
 Options -Indexes
+RewriteEngine On
+
+# HTTPS kényszerítés
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# www -> non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Létező fájlokat és mappákat ne írjon át
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Ha /valami URL jön, és létezik valami.html, akkor azt szolgálja ki
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
+
+# Főoldal
+RewriteRule ^$ index.html [L]
+
+# 404
+ErrorDocument 404 /404.html
