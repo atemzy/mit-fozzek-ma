@@ -29,7 +29,7 @@ export default function Page() {
       <section>
         <h2 className="font-serif text-2xl font-black text-[#742115]">3. Google AdSense és hirdetések</h2>
         <p className="mt-3">A weboldal Google AdSense hirdetéseket jeleníthet meg. A Google és a hirdetési technológiai partnerei sütiket, helyi tárolót, eszközazonosítókat és hasonló technológiákat használhatnak a hirdetések megjelenítéséhez, gyakoriságának szabályozásához, csalásmegelőzéshez, méréshez és – megfelelő hozzájárulás esetén – személyre szabáshoz.</p>
-        <p className="mt-3">Az Európai Gazdasági Térségből, az Egyesült Királyságból és Svájcból érkező látogatóknál a hozzájárulás kezelésére Google által tanúsított, IAB TCF-kompatibilis hozzájárulás-kezelő platform alkalmazandó. A felhasználó választása határozhatja meg, hogy személyre szabott, nem személyre szabott vagy korlátozott hirdetés jelenhet-e meg.</p>
+        <p className="mt-3">Az Európai Gazdasági Térségből, az Egyesült Királyságból és Svájcból érkező látogatóknál a hozzájárulás kezelésére Google által tanúsított, IAB TCF-kompatibilis hozzájárulás-kezelő platform alkalmazandó. A jelen megoldás a hozzájárulás-kezelő által visszaigazolt engedélyekig nem tölt be AdSense-hirdetést; elutasítás esetén a menüsorsoló továbbra is használható.</p>
       </section>
 
       <section>
@@ -61,7 +61,8 @@ export default function Page() {
         <p className="mt-3">Az adatkezelő a kockázatokkal arányos technikai és szervezési intézkedésekkel törekszik a kezelt adatok bizalmasságának, sértetlenségének és rendelkezésre állásának biztosítására.</p>
       </section>
 
-      <p className="rounded-2xl bg-[#fff5e8] p-5 text-sm">Utolsó frissítés: 2026. szeptember 16. A Google hirdetési partnereinek aktuális listája és a részletes hozzájárulási lehetőségek a weboldalon megjelenő hozzájárulás-kezelő felületen érhetők el.</p>
+      <p>A Google adatfelhasználásáról a <a className="underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google partneroldalakra vonatkozó tájékoztatójában</a> olvashatsz. Külső receptkereséskor elhagyod ezt a weboldalt; a céloldal saját adatkezelési szabályai érvényesek.</p>
+      <p className="rounded-2xl bg-[#fff5e8] p-5 text-sm">Utolsó frissítés: 2026. október 5. A Google hirdetési partnereinek aktuális listája és a részletes hozzájárulási lehetőségek a weboldalon megjelenő hozzájárulás-kezelő felületen érhetők el.</p>
     </InfoPage>
   );
 }

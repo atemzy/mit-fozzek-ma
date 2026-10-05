@@ -8,4 +8,4 @@ export const metadata: Metadata = {
   description: data.intro,
   alternates: { canonical: "/hetvegi-menu/" },
 };
-export default function Page() { return <GuidePage {...data} />; }
+export default function Page() { return <GuidePage category="hetvegi-menu" {...data} />; }

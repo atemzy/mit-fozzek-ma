@@ -8,4 +8,4 @@ export const metadata: Metadata = {
   description: data.intro,
   alternates: { canonical: "/magyaros-etelek/" },
 };
-export default function Page() { return <GuidePage {...data} />; }
+export default function Page() { return <GuidePage category="magyaros-etelek" {...data} />; }

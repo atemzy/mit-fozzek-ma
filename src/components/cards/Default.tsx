@@ -1,3 +1,4 @@
+import { findRecipe } from "@/data/recipes";
 import { Food } from "@/utils/RandomRecipe";
 import Image from "next/image";
 import React from "react";
@@ -10,6 +11,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, food, onClick }) => {
+  const localRecipe = findRecipe(food.name);
   return (
     <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[1.5rem] border border-foreground/10 bg-white/70 shadow-sm sm:rounded-[2rem]">
       <div className="relative h-40 shrink-0 overflow-hidden bg-white/40 sm:h-44 lg:h-48">
@@ -39,12 +41,12 @@ const Card: React.FC<CardProps> = ({ title, food, onClick }) => {
         <div className="flex min-h-12 items-start justify-center">
           {food.source !== "#" && (
             <a
-              href={food.source}
-              target="_blank"
+              href={localRecipe ? `/receptek/${localRecipe.slug}/` : food.source}
+              target={localRecipe ? undefined : "_blank"}
               rel="noreferrer"
               className="inline-flex min-h-10 items-center justify-center px-2 text-sm font-semibold underline decoration-foreground/30 underline-offset-4 transition hover:decoration-foreground sm:text-base"
             >
-              Recept keresése ↗
+              {localRecipe ? "Recept elolvasása →" : "Külső receptkeresés ↗"}
             </a>
           )}
         </div>

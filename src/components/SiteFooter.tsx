@@ -20,6 +20,7 @@ export default function SiteFooter() {
               className="mt-3 flex flex-wrap gap-x-4 gap-y-2 md:max-w-xl md:justify-end"
               aria-label="Lábléc navigáció"
             >
+              <Link href="/receptek/" className="hover:text-white">Receptek</Link>
               <Link href="/rolunk" className="hover:text-white">
                 Az oldalról
               </Link>

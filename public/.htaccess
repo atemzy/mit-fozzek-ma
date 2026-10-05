@@ -1,81 +1,29 @@
 DirectoryIndex index.html
-
+Options -Indexes
+ErrorDocument 404 /404.html
+AddType text/plain .txt
 <IfModule mod_rewrite.c>
   RewriteEngine On
-
-  RewriteCond %{HTTPS} !=on [OR]
+  # Cloudflare eseten a proxy HTTPS jelzeset is figyelembe vesszuk.
   RewriteCond %{HTTP_HOST} !^mitfozzekmost\.hu$ [NC]
   RewriteRule ^ https://mitfozzekmost.hu%{REQUEST_URI} [R=301,L,NE]
-
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+  RewriteRule ^ https://mitfozzekmost.hu%{REQUEST_URI} [R=301,L,NE]
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+  # Letezo exportalt fajlok es mappak; nincs minden URL-t felfogo SPA fallback.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-
-  RewriteCond %{DOCUMENT_ROOT}/index.html -f
-  RewriteRule ^ index.html [L]
 </IfModule>
-
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
-
-  <FilesMatch "\.(?:html?)$">
+  <FilesMatch "\.(html?|txt|xml)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>
-
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css text/javascript application/javascript application/json application/manifest+json application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/javascript application/json application/xml image/svg+xml
 </IfModule>
-
-<IfModule mod_brotli.c>
-  AddOutputFilterByType BROTLI_COMPRESS text/plain text/html text/xml text/css text/javascript application/javascript application/json application/manifest+json application/xml image/svg+xml
-</IfModule>
-
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType image/avif "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/gif "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType image/x-icon "access plus 1 year"
-  ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
-  ExpiresByType application/manifest+json "access plus 1 day"
-</IfModule>
-
-<IfModule mod_rewrite.c>
-  RewriteRule "(^|/)\.(?!well-known/)" - [F]
-</IfModule>
-
-Options -Indexes
-RewriteEngine On
-
-# HTTPS kényszerítés
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# www -> non-www
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
-
-# Létező fájlokat és mappákat ne írjon át
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# Ha /valami URL jön, és létezik valami.html, akkor azt szolgálja ki
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-RewriteRule ^(.+?)/?$ $1.html [L]
-
-# Főoldal
-RewriteRule ^$ index.html [L]
-
-# 404
-ErrorDocument 404 /404.html

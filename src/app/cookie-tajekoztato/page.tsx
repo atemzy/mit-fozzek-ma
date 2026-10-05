@@ -28,7 +28,7 @@ export default function Page() {
 
       <section>
         <h2 className="font-serif text-2xl font-black text-[#742115]">4. Hozzájárulás és beállítások</h2>
-        <p className="mt-3">Az Európai Gazdasági Térségből, az Egyesült Királyságból és Svájcból érkező látogatóknál a nem feltétlenül szükséges hirdetési technológiákhoz kapcsolódó döntéseket a Google által tanúsított, IAB TCF-kompatibilis hozzájárulás-kezelő felület kezeli.</p>
+        <p className="mt-3">A menüsorsolóhoz nem kell hirdetési hozzájárulás. Hirdetések csak akkor töltődnek be, ha az üzemeltető bekapcsolta őket, a Google által tanúsított, IAB TCF-kompatibilis hozzájárulás-kezelő működik, és a szükséges engedélyeket visszaigazolta. A jelen megoldás elutasítás esetén nem tölt be AdSense-hirdetést. A hozzájárulás a CMP saját beállítási felületén módosítható vagy visszavonható.</p>
         <p className="mt-3">A hozzájárulás megadása vagy elutasítása nem akadályozza a menüsorsoló alapvető használatát. A választás befolyásolhatja, hogy milyen típusú hirdetés jelenhet meg. A böngésző saját beállításaiban a sütik törölhetők vagy részben letilthatók, ez azonban egyes szolgáltatások működését is érintheti.</p>
       </section>
 
@@ -37,7 +37,8 @@ export default function Page() {
         <p className="mt-3">A hirdetési szolgáltatás fő szolgáltatója a Google. Az aktuális hirdetési technológiai partnerekről, adatkezelési célokról és a hozzájárulási lehetőségekről a weboldalon megjelenő consent/CMP felület nyújt részletes, naprakész tájékoztatást.</p>
       </section>
 
-      <p className="rounded-2xl bg-[#fff5e8] p-5 text-sm">Utolsó frissítés: 2026. szeptember 16. A cookie-tájékoztató oldal a jogi tájékoztatást szolgálja; a tényleges hozzájárulás begyűjtését külön, Google által tanúsított CMP-nek kell végeznie.</p>
+      <p>A Google adatfelhasználásáról a <a className="underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google partneroldalakra vonatkozó tájékoztatójában</a> olvashatsz. Külső receptkereséskor elhagyod ezt a weboldalt; a céloldal saját adatkezelési szabályai érvényesek.</p>
+      <p className="rounded-2xl bg-[#fff5e8] p-5 text-sm">Utolsó frissítés: 2026. október 5. A cookie-tájékoztató oldal a jogi tájékoztatást szolgálja; a tényleges hozzájárulás begyűjtését külön, Google által tanúsított CMP-nek kell végeznie.</p>
     </InfoPage>
   );
 }

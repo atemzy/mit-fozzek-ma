@@ -1,5 +1,6 @@
 "use client";
 
+import { findRecipe } from "@/data/recipes";
 import { useMemo, useState } from "react";
 
 type Props = {
@@ -15,7 +16,8 @@ export default function SingleIdeaRandomizer({
 }: Props) {
   const initial = useMemo(() => ideas[0] ?? "", [ideas]);
   const [idea, setIdea] = useState(initial);
-  const recipeUrl = `https://www.google.com/search?q=${encodeURIComponent(`${idea} recept`)}`;
+  const localRecipe = findRecipe(idea);
+  const recipeUrl = localRecipe ? `/receptek/${localRecipe.slug}/` : `https://www.google.com/search?q=${encodeURIComponent(`${idea} recept`)}`;
 
   const randomize = () => {
     if (!ideas.length) return;
@@ -24,11 +26,8 @@ export default function SingleIdeaRandomizer({
       return;
     }
 
-    let next = idea;
-    while (next === idea) {
-      next = ideas[Math.floor(Math.random() * ideas.length)];
-    }
-    setIdea(next);
+    const options = Array.from(new Set(ideas)).filter(item => item !== idea);
+    if (options.length) setIdea(options[Math.floor(Math.random() * options.length)]);
   };
 
   return (
@@ -40,11 +39,11 @@ export default function SingleIdeaRandomizer({
       </div>
       <a
         href={recipeUrl}
-        target="_blank"
+        target={localRecipe ? undefined : "_blank"}
         rel="noreferrer"
         className="mt-4 inline-flex items-center justify-center font-semibold text-[#742115] underline decoration-[#742115]/30 underline-offset-4 transition hover:decoration-[#742115]"
       >
-        Recept keresése ↗
+        {localRecipe ? "Recept elolvasása →" : "Külső receptkeresés ↗"}
       </a>
       <br />
       <button

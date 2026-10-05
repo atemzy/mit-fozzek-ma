@@ -91,13 +91,8 @@ export default function RootLayout({
   return (
     <html lang="hu">
       <head>
-        {adsenseClient ? (
-          <script
-            async
-            crossOrigin="anonymous"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-          />
-        ) : null}
+        {process.env.NEXT_PUBLIC_CMP_SCRIPT_URL?.startsWith("https://") ? <script async src={process.env.NEXT_PUBLIC_CMP_SCRIPT_URL} /> : null}
+        {adsenseClient && /^ca-pub-\d{16}$/.test(adsenseClient) ? <meta name="google-adsense-account" content={adsenseClient} /> : null}
       </head>
       <body>{children}</body>
     </html>

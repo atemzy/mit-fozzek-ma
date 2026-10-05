@@ -1,5 +1,6 @@
 "use client";
 
+import RecipeList from "@/components/content/RecipeList";
 import Advertisement from "@/components/advertisement/Default";
 import Button from "@/components/buttons/Default";
 import Card from "@/components/cards/Default";
@@ -181,12 +182,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="grid gap-4 p-3 sm:p-4 md:gap-5 md:p-6 xl:grid-cols-[180px_minmax(0,1fr)_180px]">
-          <Advertisement
-            className="hidden min-h-[560px] xl:flex"
-            label="Hirdetés"
-            slot={process.env.NEXT_PUBLIC_ADSENSE_BOTTOM_LEFT_SLOT}
-          />
+        <div className="grid gap-4 p-3 sm:p-4 md:gap-5 md:p-6 ">
 
           <div className="min-w-0 space-y-6">
             {hasResult ? (
@@ -285,6 +281,8 @@ export default function Home() {
               </div>
             </section>
 
+            <RecipeList />
+
             <Advertisement
               className="min-h-[110px]"
               label="Hirdetés"
@@ -304,11 +302,6 @@ export default function Home() {
             </section>
           </div>
 
-          <Advertisement
-            className="hidden min-h-[560px] xl:flex"
-            label="Hirdetés"
-            slot={process.env.NEXT_PUBLIC_ADSENSE_BOTTOM_RIGHT_SLOT}
-          />
         </div>
 
         <SiteFooter />
